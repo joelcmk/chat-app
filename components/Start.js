@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
+import { Screen2 } from './Screen2'
 
 
 
@@ -11,42 +12,45 @@ export default class Screen1 extends React.Component {
     super(props);
     this.state = {
       text: '',
-
+      color: '#090C08'
     }
   }
 
   render() {
     return (
+
       <ImageBackground source={require('../assets/Background-Image.png')} style={{ width: '100%', height: '100%' }} >
         <View style={styles.container}>
-          <Text>Chat App</Text>
+          <Text style={{ marginBottom: 250, color: 'white', fontSize: 30, fontWeight: 'bold' }}>Chat App</Text>
           <View style={styles.box}>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => this.setState({ text })}
-              value={this.state.text}
-              placeholder='Your Name'
-            />
+            <View>
+              <TextInput
+                style={styles.input}
+                onChangeText={(text) => this.setState({ text })}
+                value={this.state.text}
+                placeholder='Your Name'
+              />
+            </View>
             <Text>Choose Background Color</Text>
             <View style={styles.color}>
               <Button
                 title=''
-                onPress={() => this.props.navigation.navigate('Screen2')}
+                onPress={() => this.setState({ color: '#090C08' })}
                 buttonStyle={styles.color1}
               />
               <Button
                 title=''
-                onPress={() => this.props.navigation.navigate('Screen2')}
+                onPress={() => this.setState({ color: '#474056' })}
                 buttonStyle={styles.color2}
               />
               <Button
                 title=''
-                onPress={() => this.props.navigation.navigate('Screen2')}
+                onPress={() => this.setState({ color: '#8A95A5' })}
                 buttonStyle={styles.color3}
               />
               <Button
                 title=''
-                onPress={() => this.props.navigation.navigate('Screen2')}
+                onPress={() => this.setState({ color: '#B9C6AE' })}
                 buttonStyle={styles.color4}
               />
             </View>
@@ -55,7 +59,7 @@ export default class Screen1 extends React.Component {
                 buttonStyle={styles.button_start}
                 color='black'
                 title="Start Chatting"
-                onPress={() => this.props.navigation.navigate('Screen2')}
+                onPress={() => this.props.navigation.navigate('Screen2', { text: this.state.text, color: this.state.color })}
               />
             </View>
           </View>
