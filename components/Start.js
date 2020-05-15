@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
-import { Screen2 } from './Screen2'
+import { Chat } from './Chat'
 
 
 
@@ -26,40 +26,42 @@ export default class Screen1 extends React.Component {
             <View>
               <TextInput
                 style={styles.input}
-                onChangeText={(text) => this.setState({ text })}
-                value={this.state.text}
+                onChangeText={(name) => this.setState({ name })}
+                value={this.state.name}
                 placeholder='Your Name'
               />
             </View>
-            <Text>Choose Background Color</Text>
-            <View style={styles.color}>
-              <Button
-                title=''
-                onPress={() => this.setState({ color: '#090C08' })}
-                buttonStyle={styles.color1}
-              />
-              <Button
-                title=''
-                onPress={() => this.setState({ color: '#474056' })}
-                buttonStyle={styles.color2}
-              />
-              <Button
-                title=''
-                onPress={() => this.setState({ color: '#8A95A5' })}
-                buttonStyle={styles.color3}
-              />
-              <Button
-                title=''
-                onPress={() => this.setState({ color: '#B9C6AE' })}
-                buttonStyle={styles.color4}
-              />
+            <View>
+              <Text style={{ textAlign: "center", fontSize: 15, color: '#8A95A5' }}>Choose Background Color{this.state.text}</Text>
+              <View style={styles.color}>
+                <Button
+                  title=''
+                  onPress={() => this.setState({ color: '#090C08' })}
+                  buttonStyle={styles.color1}
+                />
+                <Button
+                  title=''
+                  onPress={() => this.setState({ color: '#474056' })}
+                  buttonStyle={styles.color2}
+                />
+                <Button
+                  title=''
+                  onPress={() => this.setState({ color: '#8A95A5' })}
+                  buttonStyle={styles.color3}
+                />
+                <Button
+                  title=''
+                  onPress={() => this.setState({ color: '#B9C6AE' })}
+                  buttonStyle={styles.color4}
+                />
+              </View>
             </View>
             <View style={styles.button_start}>
               <Button
                 buttonStyle={styles.button_start}
                 color='black'
                 title="Start Chatting"
-                onPress={() => this.props.navigation.navigate('Screen2', { text: this.state.text, color: this.state.color })}
+                onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}
               />
             </View>
           </View>
@@ -83,19 +85,21 @@ const styles = StyleSheet.create({
     height: 300,
     width: 320,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     marginBottom: 50,
   },
   input: {
     textAlign: 'center',
+    fontSize: 20,
     width: 300,
-    height: 40,
+    height: 60,
     borderColor: 'gray',
     borderWidth: 1
   },
   color: {
     flexDirection: "row",
     margin: 20,
+    marginTop: 10
   },
   color1: {
     backgroundColor: '#090C08',
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   },
   button_start: {
     width: 300,
-    height: 40,
+    height: 60,
     backgroundColor: '#090C08'
   }
 
