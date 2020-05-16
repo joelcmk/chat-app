@@ -1,6 +1,7 @@
 // import the screens
 import Start from './components/Start';
 import Chat from './components/Chat';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 // import react Navigation
 import { createAppContainer } from 'react-navigation'
