@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import KeyboardSpacer from "react-native-keyboard-spacer";
 
 
@@ -28,12 +28,25 @@ export default class Chat extends React.Component {
         },
         {
           _id: 2,
-          text: 'This is a system message',
+          text: this.props.navigation.state.params.name + ' entered the chat.',
           createdAt: new Date(),
           system: true,
         }
       ],
     })
+  }
+
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#000'
+          }
+        }}
+      />
+    )
   }
 
   onSend(messages = []) {
@@ -47,6 +60,7 @@ export default class Chat extends React.Component {
       <View style={{ flex: 1, backgroundColor: this.props.navigation.state.params.color }}>
         <Text style={{ textAlign: "center", color: 'white', fontSize: 30, fontWeight: 'bold' }}>{this.props.navigation.state.params.name}</Text>
         <GiftedChat
+          renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
