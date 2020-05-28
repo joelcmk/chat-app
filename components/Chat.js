@@ -7,6 +7,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 import NetInfo from '@react-native-community/netinfo';
+import CustomActions from './CustomActions';
 
 export default class Chat extends React.Component {
   constructor() {
@@ -202,6 +203,10 @@ export default class Chat extends React.Component {
     }
   }
 
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   render() {
     return (
       <View
@@ -212,6 +217,7 @@ export default class Chat extends React.Component {
       >
         <GiftedChat
           renderInputToolbar={this.renderInputToolbar.bind(this)}
+          renderActions={this.renderCustomActions}
           renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
