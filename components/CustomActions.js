@@ -1,12 +1,62 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import PropTypes from 'prop-types';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 
 export default class CustomActions extends React.Component {
 
+  pickImage = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+    if (status === 'granted') {
+      try {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: 'Images',
+        });
+      } catch (err) {
+        console.log(err);
+      }
+
+      if (!result.cancelled) {
+        try {
+          const imageUrlLink = await this.uploadImage(result.uri);
+          this.props.onSend({ image: imageUrlLink });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+  }
+
+  takePhoto = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+
+    if (status === 'granted') {
+      try {
+        let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: 'Images',
+        });
+      } catch (err) {
+        console.log(err);
+      }
+
+      if (!result.cancelled) {
+        try {
+          const imageUrlLink = await this.uploadImage(result.uri);
+          this.props.onSend({ image: imageUrlLink });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+  }
+
+
   onActionPress = () => {
-    const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
+    const options = ['Choose From Library', 'Take picture', 'Send your location to a weirdo', 'Cancel']
     const cancelButtonIndex = options.length - 1;
+
     this.context.actionSheet().showActionSheetWithOptions(
       {
         options,
@@ -15,14 +65,14 @@ export default class CustomActions extends React.Component {
       async (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
-            console.log('user wants to pick an image');
+            this.pickImage()
             return;
           case 1:
-            console.log('user wants to take a photo');
+            this.takePhoto()
             return;
           case 2:
-            console.log('user wants to get their location');
-          default:
+            this.getLocationtoSendtoWeirdos()
+            return;
         }
       },
     );
@@ -32,13 +82,14 @@ export default class CustomActions extends React.Component {
 
   render() {
     return (
-      <View>
-        <TouchableOpacity style={[styles.container]} onPress={this.onActionPress}>
-          <View style={[styles.wrapper, this.props.wrapperStyle]}>
-            <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={[styles.container]}
+        onPress={this.onActionPress}
+      >
+        <View style={[styles.wrapper, this.props.wrapperStyle]}>
+          <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
