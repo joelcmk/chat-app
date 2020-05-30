@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ImageBackground, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
 import { Chat } from './Chat'
+import { decode, encode } from 'base-64'
 
 
 
@@ -17,6 +18,9 @@ export default class Screen1 extends React.Component {
   }
 
   render() {
+    if (!global.btoa) { global.btoa = encode }
+
+    if (!global.atob) { global.atob = decode }
     return (
 
       <ImageBackground source={require('../assets/Background-Image.png')} style={{ width: '100%', height: '100%' }} >

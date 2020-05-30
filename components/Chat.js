@@ -8,6 +8,7 @@ import "firebase/firestore";
 
 import NetInfo from '@react-native-community/netinfo';
 import CustomActions from './CustomActions';
+import MapView from 'react-native-maps';
 
 export default class Chat extends React.Component {
   constructor() {
@@ -63,6 +64,8 @@ export default class Chat extends React.Component {
         text: data.text,
         createdAt: new Date(),
         user: data.user,
+        image: data.image || '',
+        location: data.location || null,
       });
     });
     this.setState({
@@ -78,6 +81,8 @@ export default class Chat extends React.Component {
       createdAt: this.state.messages[0].createdAt,
       user: this.state.user,
       uid: this.state.uid,
+      image: this.state.messages[0].image || '',
+      location: this.state.messages[0].location || null,
     });
   }
 
@@ -112,13 +117,6 @@ export default class Chat extends React.Component {
       console.log(error.message);
     }
   }
-  /**
-  * deletes messages from AsyncStorage
-  * not currently used in app
-  * @function deleteMessage
-  * @async
-  * @return {Promise<string>} The data will deleted from storage
-  */
 
   deleteMessage = async () => {
     try {
@@ -207,6 +205,19 @@ export default class Chat extends React.Component {
     return <CustomActions {...props} />;
   };
 
+  //Renders map view whwn someone shares location
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, heigth: 100, borderRadius: 13, margin: 3 }}
+          region={{ latitude: currentMessage.location.latitude, longitude: currentMessage.location.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
+        />
+      );
+    }
+  }
+
   render() {
     return (
       <View
@@ -217,7 +228,7 @@ export default class Chat extends React.Component {
       >
         <GiftedChat
           renderInputToolbar={this.renderInputToolbar.bind(this)}
-          renderActions={this.renderCustomActions}
+          renderActions={this.renderCustomActions.bind(this)}
           renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
