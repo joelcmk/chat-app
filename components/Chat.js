@@ -211,11 +211,12 @@ export default class Chat extends React.Component {
     if (currentMessage.location) {
       return (
         <MapView
-          style={{ width: 150, heigth: 100, borderRadius: 13, margin: 3 }}
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
           region={{ latitude: currentMessage.location.latitude, longitude: currentMessage.location.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
         />
       );
     }
+    return null;
   }
 
   render() {
@@ -229,6 +230,7 @@ export default class Chat extends React.Component {
         <GiftedChat
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderActions={this.renderCustomActions.bind(this)}
+          renderCustomView={this.renderCustomView.bind(this)}
           renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
