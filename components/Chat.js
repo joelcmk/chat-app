@@ -1,6 +1,6 @@
-import KeyboardSpacer from "react-native-keyboard-spacer";
+//import KeyboardSpacer from "react-native-keyboard-spacer";
 import React, { Component } from "react";
-import { StyleSheet, View, Platform, AsyncStorage } from "react-native";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
 import firebase from "firebase";
@@ -73,7 +73,7 @@ export default class Chat extends React.Component {
     });
   };
 
-  addMessage() {
+  addMessage = () => {
     console.log(this.state.user)
     this.referenceMessages.add({
       _id: this.state.messages[0]._id,
@@ -86,7 +86,7 @@ export default class Chat extends React.Component {
     });
   }
 
-  onSend(messages = []) {
+  onSend = (messages = []) => {
     this.setState(
       previousState => ({
         messages: GiftedChat.append(previousState.messages, messages)
@@ -174,6 +174,7 @@ export default class Chat extends React.Component {
     // stop listening for changes
     this.unsubscribeMessageUser();
   }
+
   renderBubble(props) {
     return (
       <Bubble
@@ -190,7 +191,7 @@ export default class Chat extends React.Component {
     )
   }
 
-  renderInputToolbar(props) {
+  renderInputToolbar = (props) => {
     if (this.state.isConnected == false) {
     } else {
       return (
