@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Image } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Text, View, StyleSheet, ImageBackground, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Chat } from './Chat'
 import { decode, encode } from 'base-64'
 
-
+/**
+ * @requires react
+ * @requires react-native
+ * @requires react-native-elements
+ */
 
 export default class Screen1 extends React.Component {
 
@@ -21,6 +23,11 @@ export default class Screen1 extends React.Component {
     if (!global.btoa) { global.btoa = encode }
 
     if (!global.atob) { global.atob = decode }
+
+    /**
+     * TextInput will set the user name 
+     * Touching a button will set the background color
+     */
     return (
 
       <ImageBackground source={require('../assets/Background-Image.png')} style={{ width: '100%', height: '100%' }} >
@@ -75,6 +82,9 @@ export default class Screen1 extends React.Component {
   }
 }
 
+/**
+ * Styles section 
+ */
 
 const styles = StyleSheet.create({
   container: {
