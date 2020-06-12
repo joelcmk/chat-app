@@ -2,7 +2,7 @@
 
 This is a chat app. The users can register entering their names. They can enter in a general chat. The users can exchange text messages, send images and share current location.
 
-[Kamban link](https://trello.com/b/n2MBBD3T/chatapp)
+[Kamban link](https://trello.com/b/ge906gFP/chat-app)
 
 # GET STARTED 
 
