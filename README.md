@@ -2,6 +2,8 @@
 
 This is a chat app. The users can register entering their names. They can enter in a general chat. The users can exchange text messages, send images and share current location.
 
+[Kamban link](https://trello.com/b/n2MBBD3T/chatapp)
+
 # GET STARTED 
 
 To start using the app. Install Expo running the next command command on the project folder. 
